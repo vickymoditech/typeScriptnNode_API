@@ -1,6 +1,6 @@
 import {Sequelize, Model, DataTypes, BuildOptions} from "sequelize";
 import db from '../../config/mysql/database';
-import {LinksModel} from '../models/links.model';
+import {LinksModel} from './links.model';
 
 export class ThingsModel extends Model {
     public id!: number;
@@ -27,17 +27,33 @@ ThingsModel.init(
     }
 );
 
-//ThingsModel.sync({force: true}).then(() => console.log("Thing table created"));
+async function seedDatabaseIfNeeded(){
+    await ThingsModel.sync({force: true});
+    await LinksModel.sync({force: true});
+}
 
-// Add more relationship here
-ThingsModel.hasMany(LinksModel, {
-    sourceKey: "id",
-    foreignKey: "fromId",
-    as: "previousLinks"
-});
+async function manageRelationship(){
 
-ThingsModel.hasMany(LinksModel, {
-    sourceKey: "id",
-    foreignKey: "toId",
-    as: "nextLinks"
-});
+    // Add here more Relationship here.
+
+    await ThingsModel.hasMany(LinksModel, {
+        sourceKey: "id",
+        foreignKey: "fromId",
+        as: "previousLinks"
+    });
+
+    await ThingsModel.hasMany(LinksModel, {
+        sourceKey: "id",
+        foreignKey: "toId",
+        as: "nextLinks"
+    });
+
+}
+
+seedDatabaseIfNeeded();
+manageRelationship();
+
+
+
+
+

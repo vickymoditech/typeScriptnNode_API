@@ -1,12 +1,11 @@
-import * as express from 'express';
-import {ThingsController} from '../controllers/things.controller';
-
-
-export class ThingsRoutes {
-
-    private thingsController: ThingsController = new ThingsController();
-
-    public registerRoutes(app: express.Application) {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const things_controller_1 = require("../controllers/things.controller");
+class ThingsRoutes {
+    constructor() {
+        this.thingsController = new things_controller_1.ThingsController();
+    }
+    registerRoutes(app) {
         app.route("/things").get(this.thingsController.index);
         app.route("/things").put(this.thingsController.create);
         app.route("/things/:id").get(this.thingsController.getThing);
@@ -15,3 +14,4 @@ export class ThingsRoutes {
         // add here more routes
     }
 }
+exports.ThingsRoutes = ThingsRoutes;

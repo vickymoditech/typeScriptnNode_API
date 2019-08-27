@@ -1,12 +1,11 @@
-import * as express from 'express';
-import {LinksController} from '../controllers/links.controller';
-
-
-export class LinksRoutes {
-
-    private linksController: LinksController = new LinksController();
-
-    public registerRoutes(app: express.Application) {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const links_controller_1 = require("../controllers/links.controller");
+class LinksRoutes {
+    constructor() {
+        this.linksController = new links_controller_1.LinksController();
+    }
+    registerRoutes(app) {
         app.route("/links").get(this.linksController.index);
         app.route("/links").put(this.linksController.create);
         app.route("/links/:id").get(this.linksController.getLink);
@@ -15,3 +14,4 @@ export class LinksRoutes {
         // add here more routes
     }
 }
+exports.LinksRoutes = LinksRoutes;

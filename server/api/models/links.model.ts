@@ -31,6 +31,3 @@ LinksModel.init(
         sequelize: db.sequelize
     }
 );
-
-
-//LinksModel.sync({force: true}).then(() => console.log("Link table created"));
