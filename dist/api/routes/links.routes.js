@@ -1,17 +1,20 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const express = require("express");
 const links_controller_1 = require("../controllers/links.controller");
 class LinksRoutes {
     constructor() {
         this.linksController = new links_controller_1.LinksController();
+        this.router = express.Router();
     }
-    registerRoutes(app) {
-        app.route("/links").get(this.linksController.index);
-        app.route("/links").put(this.linksController.create);
-        app.route("/links/:id").get(this.linksController.getLink);
-        app.route("/links/:id").delete(this.linksController.deleteLink);
-        app.route("/links/:id").put(this.linksController.updateLink);
+    registerRoutes() {
+        this.router.get('/links', this.linksController.index);
+        this.router.put('/links', this.linksController.create);
+        this.router.get('/links/:id', this.linksController.getLink);
+        this.router.delete('/links:id', this.linksController.deleteLink);
+        this.router.put('/links:id', this.linksController.updateLink);
         // add here more routes
+        return this.router;
     }
 }
 exports.LinksRoutes = LinksRoutes;

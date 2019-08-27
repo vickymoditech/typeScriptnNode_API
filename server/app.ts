@@ -22,8 +22,9 @@ class App {
     private RoutesConfig(): void {
 
         // Insert routes below
-        this.thingsRoutes.registerRoutes(this.app);
-        this.linksRoutes.registerRoutes(this.app);
+        this.app.use('/api/things', this.thingsRoutes.registerRoutes());
+        this.app.use('/api/links', this.linksRoutes.registerRoutes());
+
 
         // All undefined asset or api routes should return a 404
         this.app.route('/:url(api|auth|components|app|bower_components|assets)/*')
@@ -34,8 +35,8 @@ class App {
         // All other routes should redirect to the app.html
         this.app.route('/*')
             .get((req: express.Request, res: express.Response) => {
-                //res.sendFile(path.resolve(`${app.get('appPath')}/app.html`));
-                res.status(200).json({path: this.app.get('appPath')});
+                // res.sendFile(path.resolve(`${app.get('appPath')}/app.html`));
+                res.status(404).json({path: this.app.get('appPath')});
             });
     }
 }

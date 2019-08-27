@@ -18,8 +18,8 @@ class App {
     }
     RoutesConfig() {
         // Insert routes below
-        this.thingsRoutes.registerRoutes(this.app);
-        this.linksRoutes.registerRoutes(this.app);
+        this.app.use('/api/things', this.thingsRoutes.registerRoutes());
+        this.app.use('/api/links', this.linksRoutes.registerRoutes());
         // All undefined asset or api routes should return a 404
         this.app.route('/:url(api|auth|components|app|bower_components|assets)/*')
             .get((req, res) => {

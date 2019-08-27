@@ -5,13 +5,15 @@ import {LinksController} from '../controllers/links.controller';
 export class LinksRoutes {
 
     private linksController: LinksController = new LinksController();
+    private router: express.Router = express.Router();
 
-    public registerRoutes(app: express.Application) {
-        app.route("/links").get(this.linksController.index);
-        app.route("/links").put(this.linksController.create);
-        app.route("/links/:id").get(this.linksController.getLink);
-        app.route("/links/:id").delete(this.linksController.deleteLink);
-        app.route("/links/:id").put(this.linksController.updateLink);
+    public registerRoutes(): express.Router {
+        this.router.get('/', this.linksController.index);
+        this.router.put('/', this.linksController.create);
+        this.router.get('/:id', this.linksController.getLink);
+        this.router.delete('/:id', this.linksController.deleteLink);
+        this.router.put('/:id', this.linksController.updateLink);
         // add here more routes
+        return this.router;
     }
 }
